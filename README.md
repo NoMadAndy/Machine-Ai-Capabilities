@@ -24,6 +24,16 @@ The application provides a comprehensive dashboard showing:
 
 ## Quick Start with Docker Compose
 
+### One-Line Deployment
+
+Use the deployment script for easy setup:
+```bash
+chmod +x deploy.sh
+./deploy.sh
+```
+
+The script will guide you through the deployment options.
+
 ### Prerequisites
 
 - Docker and Docker Compose installed
@@ -74,6 +84,8 @@ This will build a larger image with PyTorch and full CUDA detection capabilities
 
 ### Without Docker
 
+If you encounter Docker build issues or prefer to run without Docker:
+
 1. Install Python 3.11+:
 ```bash
 sudo apt-get install python3.11 python3-pip
@@ -82,15 +94,51 @@ sudo apt-get install python3.11 python3-pip
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+
+# Optional: Install GPU/AI frameworks for full detection
+pip install -r requirements-gpu.txt
 ```
 
 3. Run the application:
 ```bash
 cd app
-python main.py
+python3 main.py
+```
+
+Or with uvicorn:
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 4. Access at `http://localhost:8000`
+
+### Using a Process Manager
+
+For production deployments without Docker, use systemd or supervisor:
+
+**systemd service example** (`/etc/systemd/system/ai-capabilities.service`):
+```ini
+[Unit]
+Description=AI Capabilities WebApp
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/ai-capabilities-webapp
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+ExecStart=/usr/bin/python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start:
+```bash
+sudo systemctl enable ai-capabilities
+sudo systemctl start ai-capabilities
+```
 
 ## Automatic Redeployment
 
@@ -221,6 +269,21 @@ curl http://localhost:8000/api/capabilities
 ```
 
 ## Troubleshooting
+
+### Docker Build SSL Certificate Errors
+
+If you encounter SSL certificate verification errors during Docker build:
+
+**Option 1:** The Dockerfile includes a fallback with trusted hosts, but if it still fails:
+
+```bash
+# Build with build args to bypass SSL verification
+docker build --build-arg PIP_TRUSTED_HOST="pypi.org files.pythonhosted.org" -t ai-capabilities-webapp .
+```
+
+**Option 2:** Use manual deployment instead (see "Without Docker" section above)
+
+**Option 3:** Pre-build on a system without SSL issues and push to a registry
 
 ### CUDA Not Detected
 
