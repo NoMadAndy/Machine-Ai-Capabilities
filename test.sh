@@ -6,17 +6,17 @@ echo "=================================="
 echo ""
 
 # Check if the service is running
-if curl -s http://localhost:8000/health > /dev/null 2>&1; then
+if curl -s http://localhost:8002/health > /dev/null 2>&1; then
     echo "✓ Service is running"
 else
-    echo "✗ Service is not accessible at http://localhost:8000"
+    echo "✗ Service is not accessible at http://localhost:8002"
     exit 1
 fi
 
 # Test health endpoint
 echo ""
 echo "Testing /health endpoint..."
-health_response=$(curl -s http://localhost:8000/health)
+health_response=$(curl -s http://localhost:8002/health)
 if echo "$health_response" | grep -q "healthy"; then
     echo "✓ Health check passed"
 else
@@ -27,7 +27,7 @@ fi
 # Test capabilities endpoint
 echo ""
 echo "Testing /api/capabilities endpoint..."
-capabilities_response=$(curl -s http://localhost:8000/api/capabilities)
+capabilities_response=$(curl -s http://localhost:8002/api/capabilities)
 if echo "$capabilities_response" | grep -q "system"; then
     echo "✓ Capabilities endpoint working"
 else
@@ -50,4 +50,4 @@ print(f'  Token Capacity: {data[\"token_capacity\"][\"estimated_max_context_leng
 
 echo ""
 echo "✅ All tests passed!"
-echo "🌐 Access the web interface at: http://localhost:8000"
+echo "🌐 Access the web interface at: http://localhost:8002"
