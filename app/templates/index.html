@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Capabilities Detector</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI Capabilities Detector</h1>
+            <p class="subtitle">Server AI/ML Hardware and Software Capabilities</p>
+        </header>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Detecting capabilities...</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <!-- System Information -->
+            <section class="card">
+                <h2>💻 System Information</h2>
+                <div id="system-info" class="info-grid"></div>
+            </section>
+
+            <!-- CUDA/GPU Information -->
+            <section class="card">
+                <h2>🎮 CUDA / GPU Information</h2>
+                <div id="cuda-info"></div>
+            </section>
+
+            <!-- NVIDIA SMI Information -->
+            <section class="card">
+                <h2>🔧 NVIDIA SMI</h2>
+                <div id="nvidia-smi-info"></div>
+            </section>
+
+            <!-- ROCm Information -->
+            <section class="card">
+                <h2>🔴 AMD ROCm</h2>
+                <div id="rocm-info"></div>
+            </section>
+
+            <!-- AI Frameworks -->
+            <section class="card">
+                <h2>📚 AI Frameworks</h2>
+                <div id="frameworks-info" class="info-grid"></div>
+            </section>
+
+            <!-- Token Capacity -->
+            <section class="card">
+                <h2>🎯 Estimated Token Processing Capacity</h2>
+                <div id="token-capacity"></div>
+            </section>
+
+            <!-- Raw Data -->
+            <section class="card">
+                <h2>📄 Raw JSON Data</h2>
+                <button onclick="toggleRawData()" class="btn">Toggle Raw Data</button>
+                <pre id="raw-data" style="display: none;"></pre>
+            </section>
+        </div>
+
+        <footer>
+            <p>Last updated: <span id="last-updated"></span></p>
+            <button onclick="refreshData()" class="btn btn-primary">🔄 Refresh Data</button>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+version: '3.8'
+
+# This is a fallback docker-compose file without GPU support
+# Use this if you don't have NVIDIA Docker runtime or don't need GPU detection
+# To use: docker-compose -f docker-compose.no-gpu.yml up -d
+
+services:
+  ai-capabilities-webapp:
+    build: .
+    container_name: ai-capabilities-detector
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
