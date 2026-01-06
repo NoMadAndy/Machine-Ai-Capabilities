@@ -1,0 +1,8 @@
+# Optional GPU/ML dependencies
+# Install these if you want full CUDA detection and AI framework support
+# pip install -r requirements-gpu.txt
+
+torch>=2.0.0
+tensorflow>=2.13.0
+transformers>=4.30.0
+onnxruntime-gpu>=1.15.0

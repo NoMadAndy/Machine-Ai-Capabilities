@@ -29,7 +29,7 @@ The application provides a comprehensive dashboard showing:
 - Docker and Docker Compose installed
 - (Optional) NVIDIA Docker runtime for GPU support
 
-### Deployment
+### Basic Deployment (CPU only)
 
 1. Clone this repository:
 ```bash
@@ -47,11 +47,13 @@ docker-compose up -d
 http://localhost:8000
 ```
 
-### For GPU Support
+This basic deployment will detect system information but won't have full GPU/CUDA detection capabilities.
 
-If you have NVIDIA GPUs and want to enable CUDA support:
+### GPU-Enabled Deployment
 
-1. Install NVIDIA Docker runtime:
+For full GPU detection with PyTorch and CUDA support:
+
+1. Install NVIDIA Docker runtime (if not already installed):
 ```bash
 # Ubuntu/Debian
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
@@ -61,7 +63,12 @@ sudo apt-get update && sudo apt-get install -y nvidia-docker2
 sudo systemctl restart docker
 ```
 
-2. The docker-compose.yml is already configured for GPU support!
+2. Deploy with GPU support:
+```bash
+docker-compose -f docker-compose.gpu.yml up -d
+```
+
+This will build a larger image with PyTorch and full CUDA detection capabilities.
 
 ## Manual Deployment
 
