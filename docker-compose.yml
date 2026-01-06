@@ -5,7 +5,7 @@ services:
     build: .
     container_name: ai-capabilities-detector
     ports:
-      - "8000:8000"
+      - "8002:8000"
     environment:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
