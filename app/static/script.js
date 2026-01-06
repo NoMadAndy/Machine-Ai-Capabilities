@@ -34,7 +34,16 @@ function showLoading(show) {
 
 function showError(message) {
     const content = document.getElementById('content');
-    content.innerHTML = `<div class="card error-message"><h2>Error</h2><p>${message}</p></div>`;
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'card error-message';
+    const heading = document.createElement('h2');
+    heading.textContent = 'Error';
+    const paragraph = document.createElement('p');
+    paragraph.textContent = message;
+    errorDiv.appendChild(heading);
+    errorDiv.appendChild(paragraph);
+    content.innerHTML = '';
+    content.appendChild(errorDiv);
     content.style.display = 'block';
 }
 
